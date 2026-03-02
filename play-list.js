@@ -5,17 +5,20 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import "./play-list-slide.js";
+import "./slide-arrow.js";
+
 
 /**
- * `play-list-project`
+ * `play-list`
  * 
  * @demo index.html
- * @element play-list-project
+ * @element play-list
  */
-export class PlayListProject extends DDDSuper(I18NMixin(LitElement)) {
+export class PlayList extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
-    return "play-list-project";
+    return "play-list";
   }
 
   constructor() {
@@ -24,14 +27,8 @@ export class PlayListProject extends DDDSuper(I18NMixin(LitElement)) {
     this.t = this.t || {};
     this.t = {
       ...this.t,
-      title: "Title",
+      title: "Slides Project",
     };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/play-list-project.ar.json", import.meta.url).href +
-        "/../",
-    });
   }
 
   // Lit reactive properties
@@ -65,19 +62,12 @@ export class PlayListProject extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
-  }
-
-  /**
-   * haxProperties integration via file reference
-   */
-  static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+      <div class="wrapper">
+        <h3><span>${this.t.title}:</span> ${this.title}</h3>
+        <slot></slot>
+      </div>
+    `;
   }
 }
 
-globalThis.customElements.define(PlayListProject.tag, PlayListProject);
+globalThis.customElements.define(PlayList.tag, PlayList);
