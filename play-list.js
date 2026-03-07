@@ -28,6 +28,9 @@ export class PlayList extends DDDSuper(I18NMixin(LitElement)) {
     this.t = {
       ...this.t,
       title: "Slides Project",
+      index: 0,
+      slideCount: 0,
+      wrap: true,
     };
   }
 
@@ -36,6 +39,9 @@ export class PlayList extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      index: { type: Number, reflect: true },
+      slideCount: { type: Number, state: true },
+      wrap: { type: Boolean },
     };
   }
 
@@ -58,6 +64,8 @@ export class PlayList extends DDDSuper(I18NMixin(LitElement)) {
       }
     `];
   }
+
+  
 
   // Lit render the HTML
   render() {

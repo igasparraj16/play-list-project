@@ -47,14 +47,28 @@ export class SlideArrow extends DDDSuper(I18NMixin(LitElement)) {
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
       }
-      .button {
+      .prev, .next {
         width: 36px;
         height: 36px;
         background-color: var(--ddd-theme-default-slateMaxLight); 
         border-radius: 50%;
         border-color: var(--ddd-theme-default-skyBlue);
-        border-width: 2px;
+        border-width: var(--ddd-border-size-sm);
         border-style: solid;
+      }
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ddd-spacing-4);
+        padding: var(--ddd-spacing-4) 0;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+      button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
       }
     `];
   }
@@ -62,11 +76,14 @@ export class SlideArrow extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
-      <div class="wrapper">
-        <div class="tray">
-            <div class="button"></div>
-        </div>
-      </div>
+    <div class="wrapper">
+        <button class="prev" 
+        ?disabled="${this.index === 0}"
+        @click=${() => this.dispatchEvent(new CustomEvent('prev-clicked', {bubbles: true, composed: true }))}><</button>
+        <button class="next" 
+        ?disabled="${this.index === this.total - 1}"
+        @click=${() => this.dispatchEvent(new CustomEvent('next-clicked', {bubbles: true, composed: true}))}>></button>
+    </div>
 
     `;
   }

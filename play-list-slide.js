@@ -48,7 +48,7 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
         
         width: 850px;
         font-family: var(--ddd-font-navigation);
-        padding: 40px;
+        padding: var(--ddd-spacing-10);
       }
       .wrapper {
         margin: var(--ddd-spacing-2);
@@ -56,7 +56,7 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
       }
       .single-slide {
         background-color: var(--ddd-theme-default-slateMaxLight);
-        padding: 60px;
+        padding: var(--ddd-spacing-15);
       }
       h3 span {
         font-size: var(--play-list-project-label-font-size, var(--ddd-font-size-s));
@@ -76,15 +76,18 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
         font-size: var(--ddd-font-size-xs);
         max-height: 150px;
         overflow-y: auto;
+        width: 600px;
+      }
+      .line {
+        border: none;
+        height: 3px;
+        background-color: var(--ddd-theme-default-skyBlue);
+        width: 150px;
+        margin-left: 0;
+        margin-right: auto;
       }
       play-list-slide:hover {
         box-shadow: var(--ddd-boxShadow-sm);
-      }
-      .slide-with-arrows {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--ddd-spacing-4);
       }
     `];
   }
@@ -95,18 +98,23 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
       <div class="wrapper">
         <slot></slot>
       </div>
-      <div class="slide-with-arrows">
-        <slide-arrow></slide-arrow>
-        <div class="single-slide">
-          <h4 class="top-heading">${this["top-heading"]}</h4>
-          <h3 class="second-heading">${this["second-heading"]}</h3>
-          <h5 class="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
-          <slide-indicator></slide-indicator>
-        </div>
+      
+      <div class="single-slide">
+        <h4 class="top-heading">${this["top-heading"]}</h4>
+        <h3 class="second-heading">${this["second-heading"]}</h3>
+        <hr class="line">
+        <h5 class="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
+        <slide-indicator></slide-indicator>
         <slide-arrow></slide-arrow>
       </div>
+
     `;
   }
+
+
+
+
+
 }
 
 globalThis.customElements.define(PlayListSlide.tag, PlayListSlide);
