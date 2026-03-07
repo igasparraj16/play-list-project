@@ -20,21 +20,12 @@ export class SlideArrow extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-      color: "var(--ddd-theme-default-skyBlue)"
-    };
   }
 
   // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
-      title: { type: String },
-      color: { type: String }
     };
   }
 

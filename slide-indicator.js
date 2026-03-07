@@ -20,13 +20,10 @@ export class SlideIndicator extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-      color: "var(--ddd-theme-default-skyBlue)"
-    };
+    this.title = "Title";
+    this.color = "var(--ddd-theme-default-skyBlue)";
+    this.total = 4;
+    this.currIndex = 0;
   }
 
   // Lit reactive properties
@@ -34,7 +31,9 @@ export class SlideIndicator extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
-      color: { type: String }
+      color: { type: String }, 
+      total: { type: Number },
+      currIndex: { type: Number }
     };
   }
 
@@ -58,30 +57,56 @@ export class SlideIndicator extends DDDSuper(I18NMixin(LitElement)) {
         margin-top: var(--ddd-spacing-8);
         margin-bottom: var(--ddd-spacing-2);
       }
-      .circle {
+      .dot {
         width: 12px;
         height: 12px;
-        background-color: var(--ddd-theme-default-skyBlue); 
+        background-color: var(--ddd-theme-default-skyBlue);
         border-radius: 50%;
-    }
+        cursor: pointer;
+        opacity: 0.5;
+        margin: var(--ddd-spacing-2);
+      }
+      .dot.active {
+        opacity: 1;
+        background-color: var(--ddd-theme-default-beaverBlue);
+      }
+      .dots {
+        display: flex;
+        gap: var(--ddd-spacing-3);
+        align-items: center;
+      }
 
     `];
   }
 
   // Lit render the HTML
   render() {
-    return html`
-      <div class="wrapper">
-        <div class="tray">
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-        </div>
-      </div>
+    let dots = [];
+    for (let i = 0; i < this.total; i++) {
+      dots.push(html`
+        <span @click="${(e) => this._handleDotClick(e)}" data-index="${i}" class="dot ${i === this.currIndex ? 'active' : ''}"></span>
+      `);
+    }
 
-    `;
+    return html`
+      <div class="dots">
+        ${dots}
+      </div>
+      `;
   }
+
+  _handleDotClick(e) {
+    const indexChange = new CustomEvent("play-list-index-changed", {
+      composed: true,
+      bubbles: true,
+      detail: {
+        index: parseInt(e.target.dataset.index)
+      },
+    });
+    this.dispatchEvent(indexChange);
+  }
+
+
 }
 
 globalThis.customElements.define(SlideIndicator.tag, SlideIndicator);

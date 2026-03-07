@@ -26,6 +26,12 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
     this.title ="ooOOOOosfhfiwuh";
     this["top-heading"] = "default top heading";
     this["second-heading"] = "default second heading";
+    this.slides = [
+      { title: "Slide 1" },
+      { title: "Slide 2" },
+      { title: "Slide 3" },
+      { title: "Slide 4" }
+    ];
   }
 
   // Lit reactive properties
@@ -34,7 +40,8 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
       ...super.properties,
       title: { type: String },
       "top-heading": { type: String }, 
-      "second-heading": { type: String }
+      "second-heading": { type: String },
+      slides: { type: Array }
     };
   }
 
@@ -104,8 +111,13 @@ export class PlayListSlide extends DDDSuper(I18NMixin(LitElement)) {
         <h3 class="second-heading">${this["second-heading"]}</h3>
         <hr class="line">
         <h5 class="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
-        <slide-indicator></slide-indicator>
-        <slide-arrow></slide-arrow>
+        <slide-indicator 
+          .total=${this.slides.length}
+          .currIndex="${this.currIndex}"
+          @play-list-index-changed="${this._handleIndexChange}">
+        </slide-indicator>
+        <slide-arrow @prev-clicked="${this.back}" @next-clicked="${this.next}">
+        </slide-arrow>
       </div>
 
     `;
