@@ -20,12 +20,16 @@ export class SlideArrow extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
+    this.index = 0;
+    this.total = 0;
   }
 
   // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
+      index: { type: Number },
+      total: { type: Number }
     };
   }
 
@@ -38,14 +42,23 @@ export class SlideArrow extends DDDSuper(I18NMixin(LitElement)) {
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
       }
+      .prev {
+        margin-left: -78px;
+      }
+      .next {
+        margin-right: -78px;
+      }
       .prev, .next {
         width: 36px;
         height: 36px;
         background-color: var(--ddd-theme-default-slateMaxLight); 
         border-radius: 50%;
-        border-color: var(--ddd-theme-default-skyBlue);
+        border-color: var(--ddd-theme-default-beaverBlue);
         border-width: var(--ddd-border-size-sm);
         border-style: solid;
+        color: var(--ddd-theme-default-beaverBlue);
+        font-size: var(--ddd-font-size-s);
+        cursor: pointer;
       }
       .wrapper {
         display: flex;
